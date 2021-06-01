@@ -1,5 +1,17 @@
 <template>
-  <TodoViewer msg="Test"/>
+<div class="min-h-screen bg-white dark:bg-gray-800 flex flex-wrap justify-center">
+  <TodoViewer title="June 1, 2021" desc="The Industrial Revolution and its consequences have been a disaster for the human race."/>
+  <TodoViewer title="June 1, 2021" desc="The Industrial Revolution and its consequences have been a disaster for the human race."/>
+  <TodoViewer title="June 1, 2021" desc="The Industrial Revolution and its consequences have been a disaster for the human race."/>
+  <TodoViewer title="June 1, 2021" desc="The Industrial Revolution and its consequences have been a disaster for the human race."/>
+  <TodoViewer title="June 1, 2021" desc="The Industrial Revolution and its consequences have been a disaster for the human race."/>
+  <TodoViewer title="June 1, 2021" desc="The Industrial Revolution and its consequences have been a disaster for the human race."/>
+  <TodoViewer title="June 1, 2021" desc="The Industrial Revolution and its consequences have been a disaster for the human race."/>
+  <TodoViewer title="June 1, 2021" desc="The Industrial Revolution and its consequences have been a disaster for the human race."/>
+  <TodoViewer title="June 1, 2021" desc="The Industrial Revolution and its consequences have been a disaster for the human race."/>
+  <TodoViewer title="June 1, 2021" desc="The Industrial Revolution and its consequences have been a disaster for the human race."/>
+  <TodoViewer title="June 1, 2021" desc="The Industrial Revolution and its consequences have been a disaster for the human race."/>
+</div>
 </template>
 
 <script>
@@ -9,6 +21,11 @@ export default {
   name: 'App',
   components: {
     TodoViewer
+  },
+  methods: {
+    mounted () {
+      this.id = this._uid
+    }
   }
 }
 </script>
@@ -19,7 +36,5 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

@@ -21,6 +21,7 @@ const store = createStore({
       items: [],
       changed: false,
       darkmode: true,
+      isNotFound: false,
     }
   },
   mutations: {
@@ -45,6 +46,9 @@ const store = createStore({
     setDarkmode(state, bool) {
       state.darkmode = bool
     },
+    setIsNotFound(state, bool) {
+      state.isNotFound = bool
+    }
   }
 })
 

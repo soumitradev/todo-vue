@@ -45,6 +45,14 @@ export default {
         this.$store.commit('setID', value)
       }
     },
+    isNotFound: {
+      get () {
+        return this.$store.state.isNotFound
+      },
+      set (value) {
+        this.$store.commit('setIsNotFound', value)
+      }
+    },
     todo_title: {
       get () {
         return this.$store.state.title
@@ -134,6 +142,10 @@ export default {
         "method": "GET",
         "mode": "cors"
       }).then(async function (res) {
+        if (res.status == 404) {
+          self.isNotFound = true
+          return
+        }
         var json = await res.json()
         self.todo_id = json.id
         self.todo_title = json.title

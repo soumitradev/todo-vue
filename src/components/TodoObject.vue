@@ -1,10 +1,10 @@
 <template>
   <div :id="div_id" @mouseover="hover = true" @mouseleave="hover = false">
-    <div class="flex gap-6 hover:bg-gray-200 dark:hover:bg-gray-600 p-3 rounded-2xl todo-object min-w-full">
-      <input v-if="checked" type="checkbox" class="self-center form-checkbox rounded ml-4 text-blue-500 dark:text-blue-600 todo-checkbox" checked>
-      <input v-else type="checkbox" class="self-center form-checkbox rounded ml-4 text-blue-500 dark:text-blue-600 todo-checkbox">
-      <input class="place-self-start todo-text text-gray-400 dark:text-gray-400 bg-transparent w-full" :value="text"/>
-      <button @click="doTheThing" v-show="hover" class="text-center rounded ml-4 bg-transparent remove-todo-button material-icons">remove</button>
+    <div class="transition duration-300 ease-in-out flex gap-6 hover:shadow-md p-3 todo-object min-w-full">
+      <input :id="div_id+'-checkbox'" v-if="checked" type="checkbox" class="self-center form-checkbox rounded ml-4 text-blue-500 dark:text-blue-600 todo-checkbox" v-model="todo_checked" @change="updateEmitter" checked>
+      <input :id="div_id+'-checkbox'" v-else type="checkbox" class="self-center form-checkbox rounded ml-4 text-blue-500 dark:text-blue-600 todo-checkbox" v-model="todo_checked" @change="updateEmitter">
+      <input :id="div_id+'-text'" @keydown.enter="addNext" class="place-self-start todo-text text-gray-400 dark:text-gray-400 bg-transparent w-full" v-model="todo_text" @input="updateEmitter"/>
+      <button :id="div_id+'-button'" @click="removeSelf" v-show="hover" class="text-center rounded ml-4 bg-transparent remove-todo-button material-icons" :class="{ 'md-dark' : !darkmode, 'md-light': darkmode }">remove</button>
     </div>
   </div>
 </template>
@@ -17,43 +17,62 @@ export default {
     text: String,
     checked: Boolean,
   },
+  computed: {
+    todo_text: {
+      get () {
+        return this.$store.state.items[parseInt(this.div_id.replace("todo-object-", ""))].message
+      },
+      set (value) {
+        var curItems = this.$store.state.items
+        curItems[parseInt(this.div_id.replace("todo-object-", ""))].message = value
+        this.$store.commit('setItems', curItems)
+      }
+    },
+    darkmode: {
+      get () {
+        return this.$store.state.darkmode
+      },
+      set (value) {
+        this.$store.commit('setDarkmode', value)
+      }
+    },
+    todo_checked: {
+      get () {
+        return this.$store.state.items[parseInt(this.div_id.replace("todo-object-", ""))].checked
+      },
+      set (value) {
+        var curItems = this.$store.state.items
+        curItems[parseInt(this.div_id.replace("todo-object-", ""))].checked = value
+        this.$store.commit('setItems', curItems)
+      }
+    },
+  },
   data() {
     return {
       hover: false,
     }
   },
   mounted() {
-    // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-    if (document.documentElement.classList.contains('dark')) {
-      document.getElementsByClassName('remove-todo-button').forEach(element => {
-        element.classList.add('md-light');
-      })
-    } else {
-      document.getElementsByClassName('remove-todo-button').forEach(element => {
-        element.classList.add('md-dark');
-      })
-    }
   },
   methods: {
-    doTheThing(event) {
+    removeSelf(event) {
       // `event` is the native DOM event
       if (event) {
         this.$emit('removeEvent', { id: this.div_id.replace("todo-object-", "") })
       }
     },
+    updateEmitter(event) {
+      // `event` is the native DOM event
+      if (event) {
+        this.$store.commit('setChanged', true)
+      }
+    },
+    addNext(event) {
+      // `event` is the native DOM event
+      if (event) {
+        this.$emit('addNextEvent', { id: this.div_id.replace("todo-object-", "") })
+      }
+    },
   }
 }
 </script>
-
-<style scoped>
-@import url('https://fonts.googleapis.com/css?family=Material+Icons');
-
-/* Rules for using icons as black on a light background. */
-.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
-.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
-
-/* Rules for using icons as white on a dark background. */
-.material-icons.md-light { color: rgba(255, 255, 255, 1); }
-.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
-
-</style>

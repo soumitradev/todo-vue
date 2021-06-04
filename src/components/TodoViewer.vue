@@ -12,7 +12,7 @@
     </div>
     <div class="h-full"></div>
     <div class="shadow-inner shadow-2xl p-4 flex">
-    <button v-clipboard:copy="'https://todo-vue-gray.vercel.app/todo/'+id" v-clipboard:success="onCopy" v-clipboard:error="onError" class="transition duration-300 ease-in-out bg-gray-300 dark:bg-gray-500 rounded-full w-max p-2 shadow-md hover:shadow-lg material-icons" :class="{ 'md-dark' : !darkmode, 'md-light': darkmode }">{{ copied ? "done": "link" }}</button>
+    <button v-clipboard:copy="'https://todo-vue-gray.vercel.app/todo/'+(id ? id : todo_id)" v-clipboard:success="onCopy" v-clipboard:error="onError" class="transition duration-300 ease-in-out bg-gray-300 dark:bg-gray-500 rounded-full w-max p-2 shadow-md hover:shadow-lg material-icons" :class="{ 'md-dark' : !darkmode, 'md-light': darkmode }">{{ copied ? "done": "link" }}</button>
     <button class="transition duration-300 ease-in-out bg-gray-300 dark:bg-gray-500 rounded-full w-max p-2 ml-2 shadow-md hover:shadow-lg flex" @click="togglePrivate">
       <span class="material-icons ml-1" :class="{ 'md-dark' : !darkmode, 'md-light': darkmode }">{{ todo_private ? "lock": "people" }}</span>
       <label class="ml-2 mr-2 text-gray-600 dark:text-gray-200">{{ todo_private ? "Private": "Public" }}</label>

@@ -1,5 +1,7 @@
 # vue_todo
 
+Deployed here: [https://todo-vue-gray.vercel.app/](https://todo-vue-gray.vercel.app/)
+
 This is an alternative frontend for my other project, [todo-node](https://github.com/soumitradev/todo-node), that was a full stack todo-list project.
 
 This is my first Vue.js + Tailwind project and it was built in a short span, so it doesn't have complete functionality like:

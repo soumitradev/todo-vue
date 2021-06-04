@@ -2,13 +2,13 @@
 
 This is an alternative frontend for my other project, [todo-node](https://github.com/soumitradev/todo-node), that was a full stack todo-list project.
 
-This is my first Vue.js project and it was built in a short span, so it doesn't have complete functionality like:
+This is my first Vue.js + Tailwind project and it was built in a short span, so it doesn't have complete functionality like:
 - Viewing all public todos, and
 - Viewing docs for the API
 
 But for now, this will do as a bit of practice.
 
-Vue is fun.
+Vue and Tailwind are REALLY fun.
 
 ## Project setup
 ```
